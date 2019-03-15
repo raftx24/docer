@@ -1,0 +1,17 @@
+{
+	"name": "raftx24/docer",
+	"description": "a package for create pdf from HTML",
+	"keywords": ["pdf","html","document","pdf generator","link to pdf"],
+	"homepage": "http://github.com/raftx24/docer",
+	"type": "library",
+	"license": "MIT",
+  	"authors": [
+ 	   {
+  	    "name": "Reza Fouladi",
+  	    "email": "raftx24@gmail.com"
+   	   }
+  	],
+  	"autoload": {
+    		"psr-0": {"Docer": "src/"}
+  	}
+}
