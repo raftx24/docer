@@ -1,16 +1,20 @@
 # docer
-easily convert any url to pdf 
+easily convert any url or html to pdf 
 just add package to your project with running command below
 
 `composer require raftx24/docer`
 
-then you can use it like below
+then you can use it like belowy
 
 ```
-include 'docer_package/src/Docer/Pdf.php';
+include "vendor/autoload.php";
 use Docer\Pdf;
 $p = new Pdf();
-$url = $p->linkToDownloadablePdf("https://api.blitbin.com//book/9f3ef68b398647769d30fdb4eb7b1a39/show");
-$p->linkToPdfFile("https://api.blitbin.com//book/9f3ef68b398647769d30fdb4eb7b1a39/show",time().".pdf");
+$url = $p->linkToDownloadablePdf("https://github.com");
+$p->linkToPdfFile("https://github.com",time().".pdf");
 echo $url.PHP_EOL;
+$p->htmlToPdfFile("<h1>hello world!</h1>",time()."2.pdf");
+
+
+
 ```
