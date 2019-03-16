@@ -3,9 +3,7 @@
 namespace Docer;
 class Pdf
 {
-    private $baseUrl = "http://localhost/Docer/public/makePdf";
-
-//    private $baseUrl = "http://docer.webtab.ir/toPdf";
+    private $baseUrl = "http://docer.webtab.ir/makePdf";
 
     private function toPdfLink($link)
     {
