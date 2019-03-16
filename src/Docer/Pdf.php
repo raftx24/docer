@@ -11,10 +11,9 @@ class Pdf
         return json_decode($output, true);
     }
 
-    private function toPdfHtml($link)
+    private function toPdfHtml($html)
     {
-        $output = file_get_contents($this->baseUrl . "?html=" . $link);
-        return json_decode($output, true);
+        return $this->sendPostRequest("html=" . $html);
     }
 
     public function linkToDownloadablePdf($link)
@@ -51,5 +50,23 @@ class Pdf
     {
         $content = $this->htmlToBase64Pdf($html);
         return file_put_contents($filePath, base64_decode($content));
+    }
+
+    /**
+     * @param string $param
+     * @return bool|mixed|string
+     */
+    private function sendPostRequest($param)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->baseUrl);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,
+            $param);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $server_output = curl_exec($ch);
+        curl_close($ch);
+        $server_output = json_decode($server_output, true);
+        return $server_output;
     }
 }

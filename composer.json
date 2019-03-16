@@ -13,5 +13,8 @@
   	],
   	"autoload": {
     		"psr-0": {"Docer": "src/"}
-  	}
+  	},
+	"require": {
+		"raftx24/docer": "^1.0"
+	}
 }
