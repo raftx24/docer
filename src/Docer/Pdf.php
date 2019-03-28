@@ -13,7 +13,7 @@ class Pdf
 
     private function toPdfHtml($html)
     {
-        return $this->sendPostRequest("html=" . $html);
+        return $this->sendPostRequest("html=" . urlencode($html));
     }
 
     public function linkToDownloadablePdf($link)
