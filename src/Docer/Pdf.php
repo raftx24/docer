@@ -5,50 +5,52 @@ class Pdf
 {
     private $baseUrl = "http://docer.webtab.ir/makePdf";
 
-    private function toPdfLink($link)
+    private function toPdfLink($link, $options = [])
     {
-        $output = file_get_contents($this->baseUrl . "?link=" . $link);
+        $options["link"] = $link;
+        $output = file_get_contents($this->baseUrl . "?" . http_build_query($options));
         return json_decode($output, true);
     }
 
-    private function toPdfHtml($html)
+    private function toPdfHtml($html, $options = [])
     {
-        return $this->sendPostRequest("html=" . urlencode($html));
+        $options["html"] = $html;
+        return $this->sendPostRequest(http_build_query($options));
     }
 
-    public function linkToDownloadablePdf($link)
+    public function linkToDownloadablePdf($link, $options = [])
     {
-        $result = $this->toPdfLink($link);
+        $result = $this->toPdfLink($link,$options);
         return isset($result["download_url"]) ? $result["download_url"] : null;
     }
 
-    public function linkToBase64Pdf($link)
+    public function linkToBase64Pdf($link, $options = [])
     {
-        $result = $this->toPdfLink($link);
+        $result = $this->toPdfLink($link,$options);
         return isset($result["content"]) ? $result["content"] : null;
     }
 
-    public function linkToPdfFile($link, $filePath)
+    public function linkToPdfFile($link, $filePath, $options = [])
     {
-        $content = $this->linkToBase64Pdf($link);
+        $content = $this->linkToBase64Pdf($link,$options);
         return file_put_contents($filePath, base64_decode($content));
     }
 
-    public function htmlToDownloadablePdf($html)
+    public function htmlToDownloadablePdf($html, $options = [])
     {
-        $result = $this->toPdfHtml($html);
+        $result = $this->toPdfHtml($html,$options);
         return isset($result["download_url"]) ? $result["download_url"] : null;
     }
 
-    public function htmlToBase64Pdf($html)
+    public function htmlToBase64Pdf($html, $options = [])
     {
-        $result = $this->toPdfHtml($html);
+        $result = $this->toPdfHtml($html,$options);
         return isset($result["content"]) ? $result["content"] : null;
     }
 
-    public function htmlToPdfFile($html, $filePath)
+    public function htmlToPdfFile($html, $filePath, $options = [])
     {
-        $content = $this->htmlToBase64Pdf($html);
+        $content = $this->htmlToBase64Pdf($html,$options);
         return file_put_contents($filePath, base64_decode($content));
     }
 
